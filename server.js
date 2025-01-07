@@ -1,9 +1,16 @@
 require("dotenv").config()
 const OpenAI = require("openai")
 const express = require("express")
+const cors = require("cors")
 const { OPENAI_API_KEY, ASSISTANT_ID } = process.env
 
 const app = express()
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type")
+    next()
+})
 app.use(express.json())
 
 const openai = new OpenAI({ apiKey: OPENAI_API_KEY })
